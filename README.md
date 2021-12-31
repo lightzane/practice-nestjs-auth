@@ -1,14 +1,21 @@
-## Getting Started
+## View final output
 
 ```
 npm install
 npm run start:dev
 ```
 
+## Getting started
+
+```
+git checkout 1-start
+```
+
 ## Prerequisite
 
 To able to do this course, you must have knowledge on the following:
 
+- Git
 - NestJS
 - Knowledge to create Model and store to MongoDB using Typegoose
 - Hash Passwords (Argon2)
