@@ -1,8 +1,14 @@
 ## View final output
 
+This repository can be your playground and practice to familiarize yourself with how the NestJS Passport, Guards, Cookies, Middleware and Auth works. <br>
+In the end, you should be able to use Guards and Auth the requests in your applications having Registrations, Logins and User roles. <br>
+
+See demo
+
 ```
 npm install
 npm run start:dev
+// Open browser in localhost:5000
 ```
 
 ## Getting started
