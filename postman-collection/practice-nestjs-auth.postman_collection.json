@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "39896485-e125-49bd-9a4a-f9c5079e782c",
+		"name": "practice-nestjs-auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "as member",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('User created is member', ()=>{\r",
+											"    const responseJson = pm.response.json()\r",
+											"    pm.expect(responseJson).to.haveOwnProperty('roles')\r",
+											"    pm.expect(responseJson['roles']).to.be.an('array')\r",
+											"    pm.expect(responseJson['roles']).to.include('member')\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"tests\",\r\n    \"email\": \"nat@email.com\",\r\n    \"password\": \"abcdabcd\",\r\n    \"roles\": [\"member\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "as admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('User created is admin', ()=>{\r",
+											"    const responseJson = pm.response.json()\r",
+											"    pm.expect(responseJson).to.haveOwnProperty('roles')\r",
+											"    pm.expect(responseJson['roles']).to.be.an('array')\r",
+											"    pm.expect(responseJson['roles']).to.include('admin')\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Admin\",\r\n    \"email\": \"admin@email.com\",\r\n    \"password\": \"abcdabcd\",\r\n    \"roles\": [\"admin\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "as member",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json()\r",
+											"pm.collectionVariables.set('jwt', responseJson.token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"nat@email.com\",\r\n    \"password\": \"abcdabcd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "as admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json()\r",
+											"pm.collectionVariables.set('jwt', responseJson.token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@email.com\",\r\n    \"password\": \"abcdabcd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "movie",
+			"item": [
+				{
+					"name": "create",
+					"item": [
+						{
+							"name": "SUCCESS",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json()\r",
+											"pm.collectionVariables.set('movieId', responseJson._id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Love Hard\",\r\n    \"description\": \"Love Hard is a 2021 American romantic comedy film directed by Hernán Jiménez and written by Danny Mackey and Rebecca Ewing. The film, which stars Nina Dobrev, Jimmy O. Yang and Darren Barnet, is about a young woman who travels to her online crush's hometown for Christmas, but discovers she's been catfished.\",\r\n    \"postedBy\": \"<auto generated from req['user'].name>\",\r\n    \"imgUrl\": \"https://upload.wikimedia.org/wikipedia/en/f/f6/Love_Hard_poster.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movie/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movie",
+										"create"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"item": [
+						{
+							"name": "SUCCESS",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movie/delete/:movieId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movie",
+										"delete",
+										":movieId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "{{movieId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "SUCCESS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/movie",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:5000/api"
+		},
+		{
+			"key": "jwt",
+			"value": ""
+		},
+		{
+			"key": "movieId",
+			"value": ""
+		}
+	]
+}
