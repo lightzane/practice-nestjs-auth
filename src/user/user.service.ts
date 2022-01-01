@@ -35,7 +35,7 @@ export class UserService {
             const token = this.jwt.sign({ user }); // requires jwt (see: user.module.ts)
 
             // requires npm cookie-parser (see: app.module.ts)
-            // requires implementation of middleware (see: app.module.ts)
+            // use middleware to read cookie and modify the request (see: app.module.ts & get-user.middleware.ts)
             // pass the jwt token to the cookie
             res.cookie('token', token, {
                 httpOnly: true,

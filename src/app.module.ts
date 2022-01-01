@@ -29,6 +29,10 @@ import { UserController } from './user/user.controller';
   providers: [AppService],
 })
 export class AppModule implements NestModule {
+
+  // Client --> Middleware --> Route handlers
+  // useful when you want to access cookies
+  // and modify the request headers before reaching the route handlers
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(GetUserMiddleware)

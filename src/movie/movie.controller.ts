@@ -24,7 +24,7 @@ export class MovieController {
     }
 
     @Delete('delete/:id')
-    @UseGuards(AdminRoleGuard)
+    @UseGuards(AdminRoleGuard) // or UseGuards(new RoleGuard(['admin']))
     deleteMovie(@Param('id') _id: string): Promise<Movie> {
         return this.movieService.deleteMovie(_id);
     }

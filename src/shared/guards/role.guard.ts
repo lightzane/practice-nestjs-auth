@@ -6,7 +6,8 @@ import { User } from '../../user/models/user.dto';
 @Injectable()
 export class RoleGuard implements CanActivate {
 
-  // allowedRoles will be populated in admin-role.guard.ts
+  // * allowedRoles will be populated in admin-role.guard.ts
+  // or from UseGuards(new RoleGuard(['admin']))
   constructor(private allowedRoles: string[]) { }
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
