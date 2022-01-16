@@ -32,7 +32,17 @@ export class UserService {
 
         // Validate Password
         if (await argon2.verify(user.password, password)) {
-            const token = this.jwt.sign({ user }); // requires jwt (see: user.module.ts)
+
+            const token = this.jwt.sign({ // requires jwt (see: user.module.ts)
+                // ! CAUTION on returning entire User object as it contains the "password" property
+                // we will return some property below without the password
+                user: {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    roles: [...user.roles]
+                }
+            });
 
             // requires npm cookie-parser (see: app.module.ts)
             // use middleware to read cookie and modify the request (see: app.module.ts & get-user.middleware.ts)
