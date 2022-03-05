@@ -38,4 +38,14 @@ export class AppModule implements NestModule {
       .apply(GetUserMiddleware)
       .forRoutes(MovieController);
   }
+  
+  // * Sample Multiple Middleware
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthenticationMiddleware)
+  //     .forRoutes({ path: '/**', method: RequestMethod.ALL });
+  //   consumer
+  //     .apply(RequestFilterMiddleware)
+  //     .forRoutes({ path: '/**', method: RequestMethod.GET });
+  // }
 }
